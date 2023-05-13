@@ -143,3 +143,7 @@ td:first-child{
 .list-button:hover{
     fill: #888888;
 }
+
+.button-disabled, .button-disabled:hover{
+    fill: #dddddd;
+}
