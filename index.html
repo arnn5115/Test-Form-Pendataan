@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pendataan Karyawan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 id="title">Form Pendataan Karyawan PT. Maju Mundur Jaya</h1>
+
+    <main>
+        <form id="form1" onsubmit="event.preventDefault()">
+            <div class="input_group">    
+                <label class="bigger" for="nama">Nama Karyawan</label><br/>
+                <input required type="text" name="nama" id="nama" placeholder="Masukkan Nama">
+            </div>
+            <div class="input_group"> 
+                <label class="bigger" for="telp">Nomor Telepon</label><br/>
+                <input required type="tel" name="telp" id="telp" min="1" placeholder="089...">
+            </div>
+            <div class="input_group"> 
+                <label class="bigger" for="email">Email Aktif</label><br/>
+                <input required type="email" name="email" id="email" placeholder="example@gmail.com">
+            </div>
+            <div class="input_group">
+                <label class="bigger">Jenis Kelamin</label><br/>
+                <input required type="radio" name="gender" id="laki" value="L">
+                <label for="laki">Laki-Laki</label><br/>
+                <input required type="radio" name="gender" id="perempuan" value="P">
+                <label for="perempuan">Perempuan</label><br/>
+                <input required type="radio" name="gender" id="uknown" value="-">
+                <label for="uknown">Tidak ingin memberi tahu</label>
+            </div>
+            <div class="input_group">
+                <label class="bigger" for="tgl_lahir">Tanggal Lahir</label><br/>
+                <input required type="date" name="tgl_lahir" id="tgl_lahir">
+            </div>
+            <div class="button_group">
+                <input class="form_button" type="submit" value="Submit" id="submit_button">
+                <input class="form_button" type="reset" value="Hapus">
+            </div>
+        </form>
+
+        <section class="table-wrapper">
+            <table id="list">
+                <tr>
+                    <th>No.</th>
+                    <th>Nama</th>
+                    <th>No.Telp</th>
+                    <th>Email</th>
+                    <th>JK</th>
+                    <th>Usia</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+
+            <div id="list-controller">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     width="12px" height="12px"
+                     viewBox="0 0 1.73 2">
+                    <a onclick="">
+                        <path d="M 1.73 0 L 0 1 L 1.73 2 Z" 
+                              fill="#cccccc"
+                              class="list-button"/>
+                    </a>
+                </svg>
+
+                <p>1 - 10</p>
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     width="12px" height="12px"
+                     viewBox="0 0 1.73 2">
+                    <a onclick="">
+                        <path d="M 0 0 L 1.73 1 L 0 2 Z" 
+                              fill="#cccccc"
+                              class="list-button"/>
+                    </a>
+                </svg>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>

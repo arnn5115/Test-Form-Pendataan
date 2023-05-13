@@ -1,0 +1,145 @@
+*,*::after,*::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: coral;
+}
+
+main{
+    margin-top: 50px;
+    display: flex;
+    gap: 32px;
+    margin-inline: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+#title{
+    color: white;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+
+    margin-top: 50px;
+}
+
+#form1{
+    background-color: #eeeeee;
+    border-radius: 10px;
+    width: 250px;
+    padding: 15px;
+    box-shadow: #9b594391 4px 4px 8px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+input[type=text], input[type=number], input[type=date], input[type=tel], input[type=email]{
+    padding: 4px;
+    background-color: white;
+    border: transparent solid 2px;
+    border-radius: 4px;
+    margin-block: 4px;
+    width: 200px;
+}
+
+input[type=text]:focus, input[type=number]:focus, input[type=date]:focus, input[type=tel]:focus, input[type=email]:focus{
+    border: #444444 solid 2px;
+    outline: none;
+}
+
+.bigger{
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+.button_group{
+    align-self: flex-end;
+    margin-top: 16px;
+}
+
+.form_button{
+    padding: 7px 12px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+}
+
+.form_button[type=reset]{
+    background-color: rgb(223, 136, 136);
+}
+
+.form_button[type=submit]{
+    background-color: rgb(111, 215, 111);
+}
+
+.form_button[type=reset]:hover{
+    background-color: rgb(208, 67, 67);
+}
+
+.form_button[type=submit]:hover{
+    background-color: rgb(37, 195, 37);
+}
+
+.table-wrapper{
+    background-color: #eeeeee;
+    width: 600px;
+    height: 365px;
+    border-radius: 10px;
+    box-shadow: #9b594391 4px 4px 8px;
+}
+
+#list{
+    --border-table: 1px #999999 solid;
+    width: 100%;
+    height: 320px;
+    border-collapse: collapse;
+}
+
+tr:nth-child(2n){
+    background-color: white;
+}
+
+td:nth-child(n+2), th:nth-child(n+2){
+    border-left: var(--border-table);
+}
+
+tr:last-child, th{
+    border-bottom: var(--border-table);
+}
+
+th{
+    height: 2em;
+}
+
+td{
+    padding-inline: 8px;
+}
+
+td:first-child, td:nth-child(5), td:nth-child(6){
+    text-align: center;
+}
+
+td:first-child{
+    width: 40px;
+}
+
+#list-controller{
+    background-color: white;
+    width: 100%;
+    height: 45px;
+    border-radius: 0 0 10px 10px;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.list-button:hover{
+    fill: #888888;
+}
