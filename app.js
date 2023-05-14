@@ -1,19 +1,25 @@
 // Dummy Input
-import listKaryawan from "./KaryawanDummy.json" assert {type: "json"}
-let list = listKaryawan.list
+// import listKaryawan from "./KaryawanDummy.json" assert {type: "json"}
+// let list = listKaryawan.list
 
 // No Dummy Input
-/*let list = []*/
+let list = []
 
-let page = 2;
+// Declaration
+let page = 1;
 let minIndex = (page - 1) * 10 + 1; let maxIndex = page * 10;
 let arrSize = list.length;
 let viewIndexMax;
 
+// DOM Declaration
 const submit = document.getElementById("submit_button");
-const list_back = document.querySelector("#list-controller svg:first-child a path")
-const list_next = document.querySelector("#list-controller svg:last-child a path")
+const list_back = document.querySelector("#list-controller svg:nth-child(2) a path");
+const list_next = document.querySelector("#list-controller svg:nth-child(4) a path");
+const list_first = document.querySelector("#list-controller svg:first-child a path");
+const list_last = document.querySelector("#list-controller svg:last-child a path");
+const pageLabel = document.querySelector("#list-controller p");
 
+// Class Declaration
 class Karyawan{
     constructor(nama, telp, email, gender, tglLahir){
         this.nama = nama;
@@ -24,25 +30,45 @@ class Karyawan{
     }
 };
 
+//Engine
+function clearView() {
+    const cells = document.querySelectorAll("#list tr td");
+    cells.forEach(cell => {
+        cell.innerHTML = "&nbsp";
+    });
+}
+
 function usiaCounter(dob) {
     return (Math.abs((new Date(Date.now() - new Date(dob))).getUTCFullYear() - 1970))
 }
 
 function refresh(){
-    if (page > 1) {list_back.classList.remove("button-disabled")}
-    else {list_back.classList.add("button-disabled")}
-    
-    minIndex = (page - 1) * 10 + 1;
-    maxIndex = page * 10;
     arrSize = list.length;
+    minIndex = (arrSize > 0) ? (page - 1) * 10 + 1 : 0;
+    maxIndex = page * 10;
+
+    if (page > 1) {
+        list_back.classList.remove("button-disabled");
+        list_first.classList.remove("button-disabled");
+    }
+    else {
+        list_back.classList.add("button-disabled");
+        list_first.classList.add("button-disabled");
+    }
 
     if (arrSize <= maxIndex) {
         viewIndexMax = arrSize;
         list_next.classList.add("button-disabled");
+        list_last.classList.add("button-disabled");
     } else {
         viewIndexMax = maxIndex
         list_next.classList.remove("button-disabled");
+        list_last.classList.remove("button-disabled");
     }
+    
+    pageLabel.innerText = minIndex + " - " + viewIndexMax;
+
+    clearView()
     
     for (let i = minIndex - 1;i < viewIndexMax; i++) {
         const cellNomor = document.querySelector(`#list tr:nth-child(${i%10+2}) td:nth-child(1)`);
@@ -73,18 +99,29 @@ function processData() {
     refresh();
 }
 
+// List Navigation
 function listBack() {
     if (page > 1) {page--}
     refresh();
 }
-
 function listNext() {
     if (arrSize > maxIndex) {page++}
     refresh();
 }
+function listFirst() {
+    if (page > 1) {page = 1}
+    refresh();
+}
+function listLast() {
+    if (arrSize > maxIndex) {page = Math.trunc(arrSize/10) + 1}
+    refresh();
+}
 
+// First Refresh
 submit.addEventListener("click", processData);
 list_back.addEventListener("click", listBack);
 list_next.addEventListener("click", listNext);
+list_first.addEventListener("click", listFirst);
+list_last.addEventListener("click", listLast);
 
 refresh();
