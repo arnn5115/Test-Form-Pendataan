@@ -132,13 +132,16 @@ td:nth-child(2){
     width: 250px;
 }
 td:nth-child(3){
-    width: 160px;
+    width: 125px;
 }
 td:nth-child(4){
     width: 250px;
 }
 td:nth-child(5), td:nth-child(6){
     width: 50px;
+}td:nth-child(7){
+    width: 35px;
+    padding-inline: auto;
 }
 
 #list-controller{
@@ -159,4 +162,18 @@ td:nth-child(5), td:nth-child(6){
 .button-disabled, .button-disabled:hover{
     fill: #dddddd;
     cursor: default;
+}
+
+.button-fire{
+    width: 18px;
+    height: 18px;
+    border: none;
+    border-radius: 4px;
+    background-color: rgb(221, 58, 58);
+    color: white;
+    margin: auto;
+    font-size: 0.9em;
+    font-family: monospace;
+} .button-fire:hover{
+    background-color: rgb(181, 30, 30);
 }

@@ -1,14 +1,17 @@
-// Dummy Input
-// import listKaryawan from "./KaryawanDummy.json" assert {type: "json"}
-// let list = listKaryawan.list
-
-// No Dummy Input
-let list = []
+window.onload = () => {
+    if (!localStorage.dataKaryawan){
+        localStorage.setItem("dataKaryawan", JSON.stringify({
+            "desc": "Data Karyawan PT. Maju Mundur Jaya",
+            "list": []
+        }));
+    }
+}
 
 // Declaration
 let page = 1;
-let minIndex = (page - 1) * 10 + 1; let maxIndex = page * 10;
-let arrSize = list.length;
+let minIndex = (page - 1) * 10 + 1; 
+let maxIndex = page * 10;
+let arrSize;
 let viewIndexMax;
 
 // DOM Declaration
@@ -38,51 +41,75 @@ function clearView() {
     });
 }
 
+function deleteKaryawan(idx) {
+    let listObj = JSON.parse(localStorage.dataKaryawan);
+    listObj.list.splice(idx, 1);
+
+    localStorage.setItem("dataKaryawan", JSON.stringify(listObj));
+
+    refresh();
+}
+
 function usiaCounter(dob) {
     return (Math.abs((new Date(Date.now() - new Date(dob))).getUTCFullYear() - 1970))
 }
 
 function refresh(){
-    arrSize = list.length;
-    minIndex = (arrSize > 0) ? (page - 1) * 10 + 1 : 0;
-    maxIndex = page * 10;
+    if (localStorage.dataKaryawan) {
+        let list = JSON.parse(localStorage.dataKaryawan).list;
+        
+        if (list.length > 0) {
+            arrSize = list.length;
+            minIndex = (arrSize > 0) ? (page - 1) * 10 + 1 : 0;
+            maxIndex = page * 10;
 
-    if (page > 1) {
-        list_back.classList.remove("button-disabled");
-        list_first.classList.remove("button-disabled");
-    }
-    else {
-        list_back.classList.add("button-disabled");
-        list_first.classList.add("button-disabled");
-    }
+            if (page > 1) {
+                list_back.classList.remove("button-disabled");
+                list_first.classList.remove("button-disabled");
+            }
+            else {
+                list_back.classList.add("button-disabled");
+                list_first.classList.add("button-disabled");
+            }
 
-    if (arrSize <= maxIndex) {
-        viewIndexMax = arrSize;
-        list_next.classList.add("button-disabled");
-        list_last.classList.add("button-disabled");
-    } else {
-        viewIndexMax = maxIndex
-        list_next.classList.remove("button-disabled");
-        list_last.classList.remove("button-disabled");
-    }
-    
-    pageLabel.innerText = minIndex + " - " + viewIndexMax;
+            if (arrSize <= maxIndex) {
+                viewIndexMax = arrSize;
+                list_next.classList.add("button-disabled");
+                list_last.classList.add("button-disabled");
+            } else {
+                viewIndexMax = maxIndex
+                list_next.classList.remove("button-disabled");
+                list_last.classList.remove("button-disabled");
+            }
+            
+            pageLabel.innerText = minIndex + " - " + viewIndexMax;
 
-    clearView()
-    
-    for (let i = minIndex - 1;i < viewIndexMax; i++) {
-        const cellNomor = document.querySelector(`#list tr:nth-child(${i%10+2}) td:nth-child(1)`);
-        cellNomor.innerText = i + 1;
-        const cellNama = document.querySelector(`#list tr:nth-child(${i%10+2}) td:nth-child(2)`);
-        cellNama.innerText = list[i].nama;
-        const cellTelp = document.querySelector(`#list tr:nth-child(${i%10+2}) td:nth-child(3)`);
-        cellTelp.innerText = list[i].telp;
-        const cellEmail = document.querySelector(`#list tr:nth-child(${i%10+2}) td:nth-child(4)`);
-        cellEmail.innerText = list[i].email;
-        const cellGender = document.querySelector(`#list tr:nth-child(${i%10+2}) td:nth-child(5)`);
-        cellGender.innerText = list[i].gender;
-        const cellUsia = document.querySelector(`#list tr:nth-child(${i%10+2}) td:nth-child(6)`);
-        cellUsia.innerText = usiaCounter(list[i].tglLahir);
+            clearView()
+            
+            for (let i = minIndex - 1;i < viewIndexMax; i++) {
+                const cellNomor = document.querySelector(`#list tr:nth-child(${i%10+2}) td:nth-child(1)`);
+                cellNomor.innerText = i + 1;
+                const cellNama = document.querySelector(`#list tr:nth-child(${i%10+2}) td:nth-child(2)`);
+                cellNama.innerText = list[i].nama;
+                const cellTelp = document.querySelector(`#list tr:nth-child(${i%10+2}) td:nth-child(3)`);
+                cellTelp.innerText = list[i].telp;
+                const cellEmail = document.querySelector(`#list tr:nth-child(${i%10+2}) td:nth-child(4)`);
+                cellEmail.innerText = list[i].email;
+                const cellGender = document.querySelector(`#list tr:nth-child(${i%10+2}) td:nth-child(5)`);
+                cellGender.innerText = list[i].gender;
+                const cellUsia = document.querySelector(`#list tr:nth-child(${i%10+2}) td:nth-child(6)`);
+                cellUsia.innerText = usiaCounter(list[i].tglLahir);
+                const cellButtons = document.querySelector(`#list tr:nth-child(${i%10+2}) td:nth-child(7)`);
+                if (cellButtons.children.length == 0) {    
+                    const fireButton = document.createElement("button");
+                    fireButton.classList.add("button-fire");
+                    fireButton.innerText = "X";
+                    fireButton.addEventListener("click", () => {deleteKaryawan(i)});
+                    cellButtons.innerText = "";
+                    cellButtons.appendChild(fireButton);
+                }
+            }
+        } else {clearView()}
     }
 }
 
@@ -94,7 +121,11 @@ function processData() {
     let tglLahir = document.getElementById("tgl_lahir").value;
     
     let tempObj = new Karyawan(nama, telp, email, gender, tglLahir);
-    list.push(tempObj);
+
+    let listObj = JSON.parse(localStorage.dataKaryawan);
+    listObj.list.push(tempObj);
+
+    localStorage.setItem("dataKaryawan", JSON.stringify(listObj));
 
     refresh();
 }
